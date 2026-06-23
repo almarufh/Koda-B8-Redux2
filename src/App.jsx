@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import Dasboard from "./pages/Dasboard";
+// import Dasboard from "./pages/Dasboard";
 import { Provider } from "react-redux";
-import store from './redux/store.js'
+import {store, persistor } from './redux/store.js'
+import { PersistGate } from "redux-persist/integration/react";
 
 const path = createBrowserRouter([
   {
@@ -12,9 +13,13 @@ const path = createBrowserRouter([
 
 function App () {
   return (
-    <Provider store={store} >
-      <RouterProvider router={path} />
-    </Provider>
+    <PersistGate 
+      persistor={persistor}
+    >
+      <Provider store={store} >
+        <RouterProvider router={path} />
+      </Provider>
+    </PersistGate>
   )
 }
 
