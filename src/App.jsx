@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Dasboard from "./pages/Dasboard";
+import { Provider } from "react-redux";
+import store from './redux/store.js'
 
 const path = createBrowserRouter([
   {
@@ -10,7 +12,9 @@ const path = createBrowserRouter([
 
 function App () {
   return (
-    <RouterProvider router={path} />
+    <Provider store={store} >
+      <RouterProvider router={path} />
+    </Provider>
   )
 }
 
