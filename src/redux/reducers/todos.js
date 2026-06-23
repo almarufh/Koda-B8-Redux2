@@ -11,10 +11,12 @@ const todosSlice = createSlice({
         },
         
         editTask: (state, action) => {
-            const { id, text } = action.payload;
-            const editTask = state.find(task => task.id === id);
-            if (editTask) {
-                editTask.text = text;
+            const { id, text, completed } = action.payload;
+            const targetTask = state.find(task => task.id === id);
+            
+            if (targetTask) {
+                if (text !== undefined) targetTask.text = text;
+                if (completed !== undefined) targetTask.completed = completed;
             }
         },
         
