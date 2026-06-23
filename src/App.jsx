@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-// import Dasboard from "./pages/Dasboard";
+import Dasboard from "./pages/Dasboard";
 import { Provider } from "react-redux";
 import {store, persistor } from './redux/store.js'
 import { PersistGate } from "redux-persist/integration/react";
