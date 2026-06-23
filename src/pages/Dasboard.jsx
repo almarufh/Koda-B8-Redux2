@@ -1,16 +1,33 @@
 import React from 'react';
 import { MdDelete } from "react-icons/md";
 import Navbar from '../component/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, editTask, removeTask } from '../redux/reducers/todos';
 
 function Dashboard() {
-    const [tasks, setTasks] = React.useState([]);
+    // const [tasks, setTasks] = React.useState([]);
+    const dispatch = useDispatch
     const taskRef = React.useRef();
     const radioRefs = React.useRef({});
+    
+    const tasks = useSelector(state => state.todos)
 
     function clickAdd() {
         const text = taskRef.current.value;
         if (text.length >= 3) {
-            setTasks([...tasks, { id: Date.now(), text: text, completed: false }]);
+            dispatch(addTask({
+                id: Date.now(), 
+                text: text, 
+                completed: false 
+            }));
+            // setTasks([
+            //     ...tasks, 
+            //     { 
+            //         id: Date.now(), 
+            //         text: text, 
+            //         completed: false 
+            //     }
+            // ]);
             taskRef.current.value = "";
         } else {
             alert("Minimal 3 huruf ya!");
@@ -25,17 +42,29 @@ function Dashboard() {
             radioRefs.current[id].checked = statusBaru;
         }
 
-        setTasks((prevTasks) =>
-            prevTasks.map((item) =>
-                item.id === id ? { ...item, completed: statusBaru } : item
-            )
-        );
+        dispatch(editTask({ 
+            id, completed: 
+            statusBaru 
+        }));
+
+        // setTasks((prevTasks) =>
+        //     prevTasks.map((item) =>
+        //         item.id === id ? { 
+        //             ...item, 
+        //             completed: statusBaru 
+        //         } : item
+        //     )
+        // );
     }
 
     function deleteTask(event, id) {
         event.stopPropagation();
         delete radioRefs.current[id];
-        setTasks(tasks.filter(t => t.id !== id));
+        dispatch(removeTask(id));
+        if (editId === id) {
+            setEditId(null);
+        }
+        // setTasks(tasks.filter(t => t.id !== id));
     }
 
     return (
