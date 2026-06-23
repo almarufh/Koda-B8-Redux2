@@ -1,12 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
-    { 
-        id: "1", 
-        text: "Makan Malam", 
-        completed: false 
-    }
-];
+const initialState = []
 
 const todosSlice = createSlice({
     name: "todos",
